@@ -1,0 +1,28 @@
+[
+  {
+    "name": "card_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "customer_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "card_number",
+    "type": "STRING"
+  },
+  {
+    "name": "expiry_date",
+    "type": "DATE"
+  },
+  {
+    "name": "cvv",
+    "type": "INTEGER"
+  },
+  {
+    "name": "credit_limit",
+    "type": "NUMERIC"
+  }
+]

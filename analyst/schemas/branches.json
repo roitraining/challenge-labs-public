@@ -1,0 +1,27 @@
+[
+  {
+    "name": "branch_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "branch_name",
+    "type": "STRING"
+  },
+  {
+    "name": "address",
+    "type": "STRING"
+  },
+  {
+    "name": "city",
+    "type": "STRING"
+  },
+  {
+    "name": "province",
+    "type": "STRING"
+  },
+  {
+    "name": "postal_code",
+    "type": "STRING"
+  }
+]

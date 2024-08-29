@@ -1,0 +1,29 @@
+[
+  {
+    "name": "loan_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "customer_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "employee_id",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "loan_type",
+    "type": "STRING"
+  },
+  {
+    "name": "loan_amount",
+    "type": "NUMERIC"
+  },
+  {
+    "name": "loan_date",
+    "type": "DATE"
+  }
+]
