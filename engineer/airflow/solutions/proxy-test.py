@@ -4,7 +4,7 @@ from airflow.hooks.postgres_hook import PostgresHook
 from datetime import datetime
 
 def test():
-    pg_hook = PostgresHook(postgres_conn_id='postgres_default')
+    pg_hook = PostgresHook(postgres_conn_id='cloud_sql_postgres_via_proxy')
     select_sql = f'SELECT * FROM branches'
     connection = pg_hook.get_conn()
     cursor = connection.cursor()

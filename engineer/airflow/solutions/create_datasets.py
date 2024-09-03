@@ -2,11 +2,11 @@ from airflow import DAG
 from datetime import datetime
 from airflow.contrib.operators.bigquery_operator import BigQueryCreateEmptyDatasetOperator
 
-DATASETS = ['raw', 'optimized', 'views', 'functions']
+DATASETS = ['raw', 'optimized', 'views', 'functions', 'models']
 PROJECT = 'your-project-id'
 
 default_args = {
-    'owner': 'sbcl',
+    'owner': 'cl-student',
     'depends_on_past': False,
     'start_date': datetime(2021, 1, 1),
     'retries': 0,

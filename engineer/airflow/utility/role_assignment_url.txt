@@ -1,1 +1,1 @@
-https://assign-a-role-nmwkl6pwxa-uc.a.run.app/iam?role=roles/cloudsql.client&account_type=serviceAccount&email=projectnumber-compute@developer.gserviceaccount.com
+https://assign-a-role-nmwkl6pwxa-uc.a.run.app/iam?role=roles/cloudsql.client&account_type=serviceAccount&email=composer-env-sa@project_id.iam.gserviceaccount.com

@@ -45,7 +45,7 @@ RAW_DATASET = "raw_composer"
 OPTIMIZED_DATASET = "optimized_composer"
 
 def export_rows(table):
-    pg_hook = PostgresHook(postgres_conn_id='postgres_default')
+    pg_hook = PostgresHook(postgres_conn_id='cloud_sql_postgres_via_proxy')
     select_sql = f'SELECT * FROM {table}'
     connection = pg_hook.get_conn()
     with connection.cursor('server_side_cursor') as cursor:
@@ -67,7 +67,7 @@ def export_rows(table):
     os.remove(tmp_file)
 
 default_args = {
-    'owner': 'sbcl',
+    'owner': 'cl-student',
     'depends_on_past': False,
     'start_date': datetime(2022, 1, 1),
     'retries': 0,

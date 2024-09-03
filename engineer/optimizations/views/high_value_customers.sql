@@ -21,8 +21,8 @@ CREATE OR REPLACE VIEW
     ranked_customers AS (
     SELECT
       *,
-      ROUND( 1 -( PERCENT_RANK() OVER (ORDER BY loan_amount DESC ) + PERCENT_RANK() OVER (ORDER BY account_balance DESC ) ) / 2, 2 ) * 100 AS percentile
-    FROM
+      ROUND(((PERCENT_RANK() OVER (ORDER BY account_balance)) * 100 + (PERCENT_RANK() OVER (ORDER BY loan_amount)) * 100) / 2, 2) AS percentile
+  FROM
       sums )
   SELECT
     *

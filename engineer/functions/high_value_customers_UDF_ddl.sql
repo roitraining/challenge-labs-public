@@ -21,7 +21,8 @@ CREATE OR REPLACE VIEW
     ranked_customers AS (
     SELECT
       *,
-      functions.percentile( PERCENT_RANK() OVER (ORDER BY loan_amount DESC ) + PERCENT_RANK() OVER (ORDER BY account_balance DESC ) / 2) AS percentile
+      functions.composite_percentile( PERCENT_RANK() OVER (ORDER BY account_balance),
+        PERCENT_RANK() OVER (ORDER BY loan_amount) ) AS percentile
     FROM
       sums )
   SELECT
