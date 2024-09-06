@@ -3,7 +3,7 @@ WITH
   SELECT
     *
   FROM
-    `views.upsell_candidates` u
+    `views.upsell_candidates_opt` u
   JOIN
     `raw.customers` c
   ON
@@ -20,7 +20,9 @@ WITH
           "Total number of transaction in 6 month period: ",
           c.num_transactions,
           "Primary banking branch: ",
-          b.branch_name) AS prompt
+          b.branch_name,
+          "[additional context/direction goes here]"
+      ) AS prompt
   FROM
     customer_info c
   JOIN

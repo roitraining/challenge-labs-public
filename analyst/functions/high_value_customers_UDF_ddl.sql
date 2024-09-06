@@ -5,8 +5,8 @@ CREATE OR REPLACE VIEW
     SELECT
       c.*,
       l.total_loans,
-      functions.composite_percentile( PERCENT_RANK() OVER (ORDER BY account_balance),
-        PERCENT_RANK() OVER (ORDER BY loan_amount) ) AS percentile
+      functions.composite_percentile( PERCENT_RANK() OVER (ORDER BY c.total_balance),
+        PERCENT_RANK() OVER (ORDER BY l.total_loans) ) AS percentile
     FROM
       `views.mv_customer_deposits` c
     JOIN
