@@ -5,18 +5,19 @@ CREATE OR REPLACE VIEW
     SELECT
       c.*,
       l.total_loans,
-      functions.percentile( PERCENT_RANK() OVER (ORDER BY l.total_loans DESC ) + PERCENT_RANK() OVER (ORDER BY c.total_balance DESC ) / 2) AS percentile
+      functions.composite_percentile( PERCENT_RANK() OVER (ORDER BY account_balance),
+        PERCENT_RANK() OVER (ORDER BY loan_amount) ) AS percentile
+    FROM
+      `views.mv_customer_deposits` c
+    JOIN
+      `views.mv_customer_loans` l
+    ON
+      l.customer_id = c.customer_id)
+  SELECT
+    *
   FROM
-    `views.mv_customer_deposits` c
-  JOIN
-    `views.mv_customer_loans` l
-  ON
-    l.customer_id = c.customer_id)
-SELECT
-  *
-FROM
-  ranked_customers
-WHERE
-  percentile > 90
-ORDER BY
-  percentile DESC)
+    ranked_customers
+  WHERE
+    percentile > 90
+  ORDER BY
+    percentile DESC)

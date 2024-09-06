@@ -58,7 +58,7 @@ CREATE OR REPLACE VIEW
     SELECT
       c.*,
       l.total_loans,
-      ROUND( 1 -( PERCENT_RANK() OVER (ORDER BY l.total_loans DESC ) + PERCENT_RANK() OVER (ORDER BY c.total_balance DESC ) ) / 2, 2 ) * 100 AS percentile
+      ROUND(((PERCENT_RANK() OVER (ORDER BY c.total_balance)) * 100 + (PERCENT_RANK() OVER (ORDER BY l.total_loans)) * 100) / 2, 2) AS percentile
     FROM
       customer_deposits c
     JOIN
