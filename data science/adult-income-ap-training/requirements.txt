@@ -1,0 +1,5 @@
+tensorflow==2.13
+google-cloud-storage
+google-cloud-aiplatform[prediction]
+google-cloud-artifact-registry
+pandas
