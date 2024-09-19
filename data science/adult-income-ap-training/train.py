@@ -4,7 +4,6 @@ import tensorflow as tf
 import os
 import joblib
 
-from google.cloud import aiplatform
 from google.cloud import storage
 
 from tensorflow.keras.layers import Dense
@@ -13,13 +12,7 @@ from tensorflow.keras.models import Sequential
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder
 
-PROJECT = "jwd-test-sbcl"
-REGION = "us-central1"
-
-MODEL_NAME = "adult-income-ap-training-model"
-MODEL_LOCAL_PATH = "./adult-income-ap-training-model"
-
-BUCKET_NAME = "jwd-test-sbcl"
+BUCKET_NAME = "[project]"
 GCS_FOLDER = "adult-income-ap-training-model"
 DATA_FILE = "adult-income.csv"
 
@@ -79,9 +72,8 @@ model = Sequential([
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-# Train the model
+# Train and save the model
 model.fit(X_train_final, y_train, epochs=1, validation_split=0.2)
-
 model.save(f"gs://{BUCKET_NAME}/{GCS_FOLDER}")
 
 # Save the scaler and encoders for later use during prediction
