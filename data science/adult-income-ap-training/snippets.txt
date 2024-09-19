@@ -1,0 +1,21 @@
+# create and deploy the Vertex AI model
+
+# initialize aiplatform
+aiplatform.init(project=PROJECT, location=LOCATION)
+
+# Create the model
+model = aiplatform.Model.upload(
+    display_name=MODEL_NAME,
+    artifact_uri=f'gs://{BUCKET_NAME}/{GCS_FOLDER}',
+    serving_container_image_uri='us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-13:latest',
+)
+
+print(f'Model ID: {model.resource_name}')
+
+# Deploy the model to the endpoint
+endpoint = model.deploy(
+    deployed_model_display_name=f'{MODEL_NAME}-deployed',
+    machine_type='n2-highmem-2'
+)
+
+print(f'Endpoint ID: {endpoint.resource_name}')
