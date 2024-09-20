@@ -4,7 +4,6 @@ import tensorflow as tf
 import os
 import joblib
 
-from google.cloud import aiplatform
 from google.cloud import storage
 
 from tensorflow.keras.layers import Dense
@@ -13,12 +12,7 @@ from tensorflow.keras.models import Sequential
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder
 
-PROJECT = "jwd-test-sbcl"
-LOCATION = "us-central1"
-
-MODEL_NAME = "adult-income-cc-training-model"
-
-BUCKET_NAME = "jwd-test-sbcl"
+BUCKET_NAME = "[project]"
 GCS_FOLDER = "adult-income-cc-training-model"
 DATA_FILE = "adult-income.csv"
 
