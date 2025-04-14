@@ -1,3 +1,3 @@
 CREATE OR REPLACE MODEL
   `models.upsell` REMOTE
-WITH CONNECTION `us.upsell`  OPTIONS(ENDPOINT = 'gemini-1.5-flash-001')
+WITH CONNECTION `us.upsell`  OPTIONS(ENDPOINT = 'gemini-2.0-flash')
