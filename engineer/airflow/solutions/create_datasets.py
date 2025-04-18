@@ -1,6 +1,6 @@
 from airflow import DAG
 from datetime import datetime
-from airflow.contrib.operators.bigquery_operator import BigQueryCreateEmptyDatasetOperator
+from airflow.providers.google.cloud.operators.bigquery import BigQueryExecuteQueryOperator
 
 DATASETS = ['raw', 'optimized', 'views', 'functions', 'models']
 PROJECT = 'your-project-id'

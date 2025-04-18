@@ -2,9 +2,9 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.operators.empty import EmptyOperator
-from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
 from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQueryOperator
-from airflow.providers.google.cloud.operators.bigquery import BigQueryExecuteQueryOperator
+from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator
+from airflow.providers.google.cloud.hooks.gcs import GCSHook
 
 
 from datetime import datetime
@@ -60,7 +60,7 @@ def export_rows(table):
                     break
                 writer.writerows(rows)
     
-    gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_default')
+    gcs_hook = GCSHook()
     gcs_hook.upload(bucket_name=BUCKET,
                     object_name=f'db_export/{table}.csv',
                     filename=tmp_file)
@@ -118,23 +118,33 @@ for table in TABLES:
     wait_for_exports >> load_csv >> wait_for_imports
 
 for table in OPTIMIZED_TABLES:
-    run_ddl = BigQueryExecuteQueryOperator(
+    run_ddl = BigQueryInsertJobOperator(
         task_id=f'create_table_{table}',
-        sql=table_ddl.ddls[table],
-        use_legacy_sql=False,
-        location='US',
-        gcp_conn_id='google_cloud_default',
-        dag=dag
+        configuration={
+            "query": {
+                "query": table_ddl.ddls[table],
+                "useLegacySql": False,
+                "priority": "BATCH"
+            }
+        }
     )
     wait_for_imports >> run_ddl >> wait_for_optimized
 
 for view in VIEWS:
-    run_ddl = BigQueryExecuteQueryOperator(
+    run_ddl = BigQueryInsertJobOperator(
         task_id=f'create_view_{view}',
-        sql=view_ddl.ddls[view],
-        use_legacy_sql=False,
-        location='US',
-        gcp_conn_id='google_cloud_default',
-        dag=dag
+        configuration={
+            "query": {
+                "query": view_ddl.ddls[view],
+                "useLegacySql": False,
+                "priority": "BATCH"
+            }
+        }
+        
+        # sql=view_ddl.ddls[view],
+        # use_legacy_sql=False,
+        # location='US',
+        # gcp_conn_id='google_cloud_default',
+        # dag=dag
     )
     wait_for_optimized >> run_ddl
